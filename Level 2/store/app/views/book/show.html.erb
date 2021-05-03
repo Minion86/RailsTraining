@@ -1,0 +1,22 @@
+<h1>Id: <%= @book.id %></h1>
+
+<p>Name: <%= @book.name %></p>
+
+<p>Author: <%= @book.author %></p>
+
+<p>Price: <%= @book.price %></p>
+
+<p>Editor: <%= @book.editor %></p>
+
+<p>Description: <%= @book.description %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_book_path(@book) %></li>
+  <li><%= link_to "Destroy", book_path(@book),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+</ul>
+
+<
+
+<%= link_to "New Book", new_book_path(company_id: @book.company_id)%>
