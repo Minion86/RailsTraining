@@ -1,0 +1,21 @@
+<h1>Id: <%= @game.id %></h1>
+
+<p>Name: <%= @game.name %></p>
+
+
+<p>Price: <%= @game.price %></p>
+
+<p>Editor: <%= @game.platform %></p>
+
+<p>Description: <%= @game.description %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_game_path(@game) %></li>
+  <li><%= link_to "Destroy", game_path(@game),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+</ul>
+
+<
+
+<%= link_to "New Game", new_game_path(company_id: @game.company_id)%>

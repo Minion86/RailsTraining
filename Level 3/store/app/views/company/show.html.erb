@@ -1,0 +1,95 @@
+<h1><%= @company.id %></h1>
+
+<p><%= @company.name %></p>
+
+<ul>
+    <li><%= link_to "Edit", edit_company_path(@company) %></li>
+    <li><%= link_to "Destroy", company_path(@company),
+          method: :delete,
+          data: { confirm: "Are you sure?" } %></li>
+</ul>
+
+<br/>
+<div class="container">   
+    <h3>BOOK LIST</h3>   
+
+    <div>   
+        <%= link_to "New Book", new_book_path(company_id: @company.id)%>  
+    </div>   
+    <br>   
+    <table border="2">   
+        <thead>   
+            <tr>   
+                <th>Name</th>   
+                <th>Author</th>   
+                <th>Price</th> 
+                <th>Editor</th>
+                <th>Description</th>
+                <th>Actions</th>   
+            </tr>   
+        </thead>   
+        <tbody>   
+            <% @company.book.each do |book|  %>   
+              <tr>   
+                  <td><%= book.name %></td>   
+                  <td><%= book.author %></td>   
+                  <td><%= book.price %></td>   
+                  <td><%= book.editor %></td>   
+                  <td><%= truncate(book.description, :length => 75) %></td>   
+          <div>   
+              <td>   
+                  <%= link_to 'Show', book_path(book) %>  
+                  <%= link_to "Edit", edit_book_path(book) %>
+                  <%= link_to "Destroy", book_path(book),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" } %>
+          </div>   
+          </td>   
+          </tr>   
+        <% end %>   
+        </tbody>   
+    </table>   
+</div>   
+
+<br/>
+
+<div class="container">   
+    <h3>GAME LIST</h3>   
+
+    <div>   
+        <%= link_to "New Game", new_game_path(company_id: @company.id)%>  
+    </div>   
+    <br>   
+    <table border="2">   
+        <thead>   
+            <tr>   
+                <th>Name</th>     
+                <th>Price</th> 
+                <th>Platform</th>
+                <th>Description</th>
+                <th>Actions</th>   
+            </tr>   
+        </thead>   
+        <tbody>   
+            <% @company.game.each do |game|  %>   
+              <tr>   
+                  <td><%= game.name %></td>     
+                  <td><%= game.price %></td>   
+                  <td><%= game.platform %></td>   
+                  <td><%= truncate(game.description, :length => 75) %></td>   
+          <div>   
+              <td>   
+                  <%= link_to 'Show', game_path(game) %>  
+                  <%= link_to "Edit", edit_game_path(game) %>
+                  <%= link_to "Destroy", game_path(game),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" } %>
+          </div>   
+          </td>   
+          </tr>   
+        <% end %>   
+        </tbody>   
+    </table>   
+</div>   
+
+
