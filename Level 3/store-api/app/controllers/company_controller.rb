@@ -8,7 +8,7 @@ class CompanyController < ApplicationController
 
   
   def show
-    @company = Company.find(params[:id])
+   # @company = Company.find(params[:id])
     json_response(@company)
   end
 
@@ -23,7 +23,7 @@ class CompanyController < ApplicationController
   end
  
   def update
-    @company = Company.find(params[:id])
+    #@company = Company.find(params[:id])
 
     if @company.update(company_params)
    
@@ -32,17 +32,27 @@ class CompanyController < ApplicationController
       json_response({error:'Error',ok:''})
     end
   end
-end
-  
-def destroy
-  @company = Company.find(params[:id])
-  @company.destroy
 
-  json_response({error:'',ok:'ok'})
-end
   
-private
-def company_params
-  params.permit(:id,:name)
+  def destroy
+    #@company = Company.find(params[:id])
+    @company.destroy
+
+    json_response(@company)
+  end
+  
+  private
+  def company_params
+    params.permit(:name)
+  end
+
+
+  def set_todo
+    if(params.has_key?(:id) )
+      @company = Company.find(params[:id])
+    end
+  
+  end
+
 end
   

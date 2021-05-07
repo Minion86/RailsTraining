@@ -6,19 +6,14 @@ class GameController < ApplicationController
     json_response(@game)
   end
   
-  def new
-    @company = Company.find(params[:company_id])
-    @game = Game.new
-    @game.company_id=@company.id
-  end
   
   def show
-    @game = Game.find(params[:id])
+    #@game = Game.find(params[:id])
     json_response(@game)
   end
 
   def create
-    @company = Company.find(params[:company_id])
+    #@company = Company.find(params[:company_id])
     @game = @company.game.create(game_params)
 
     respond_to do |format|
@@ -31,8 +26,8 @@ class GameController < ApplicationController
   end
  
   def update
-    @game = Game.find(params[:id])
-    @company = Company.find(@game.company_id)
+    #@game = Game.find(params[:id])
+    #@company = Company.find(@game.company_id)
     if @game.update(game_params)
       json_response(@game)
     else
@@ -41,8 +36,8 @@ class GameController < ApplicationController
   end
   
   def destroy
-    @company = Company.find(params[:company_id])
-    @game = Game.find(params[:id])
+    #@company = Company.find(params[:company_id])
+    #@game = Game.find(params[:id])
     @game.destroy
 
     json_response({error:'',ok:'ok'})
@@ -52,7 +47,19 @@ class GameController < ApplicationController
 
   private
   def game_params
-    params.permit(:id, :name, :price,:platform,:description,:company_id)
+    params.permit(:name, :price,:platform,:description,:company_id)
+  end
+  
+  
+
+  def set_todo
+    if(params.has_key?(:id) )
+      @game = Game.find(params[:id])
+    end
+    if(params.has_key?(:company_id) )
+      @company = Company.find(params[:company_id])
+    end
+    
   end
 
 end
