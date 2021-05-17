@@ -29,7 +29,8 @@ class CompanyController < ApplicationController
    
       json_response(@company)
     else
-      json_response({error:'Error',ok:''})
+      json_response(@company)
+     # json_response({error:'Error',ok:''})
     end
   end
 
@@ -43,7 +44,7 @@ class CompanyController < ApplicationController
   
   private
   def company_params
-    params.permit(:name)
+    params.permit(:id,:name)
   end
 
 
