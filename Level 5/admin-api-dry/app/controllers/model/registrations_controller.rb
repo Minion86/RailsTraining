@@ -1,13 +1,22 @@
 # frozen_string_literal: true
 
 class Model::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+  
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def create
+    @user = Model.new(sign_up_params)
+    if @user.save
+      render json: @user
+    else
+      render json: { errors: @user.errors }
+    end
+  end
+  private
+  def sign_up_params
+    params.permit(:email, :password, :password_confirmation)
+  end
 
   # POST /resource
   # def create

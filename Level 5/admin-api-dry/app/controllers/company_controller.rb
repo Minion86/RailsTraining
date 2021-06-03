@@ -1,5 +1,6 @@
 class CompanyController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :create]
+  before_action :authenticate_model!
   
   def index
     @company = Company.all

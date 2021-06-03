@@ -2,6 +2,7 @@ require 'logger_simple'
 
 class EmployeeController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :create]
+  before_action :authenticate_model!
   
   def index
     @employee = Employee.all

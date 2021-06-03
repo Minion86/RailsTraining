@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :models, controllers: { sessions: 'model/sessions' }
+   devise_for :models,
+               path: '',
+               path_names: {
+                 sign_in: 'login',
+                 sign_out: 'logout',
+                 registration: 'create'
+               },
+               controllers: {
+                 sessions: 'model/sessions',
+                 registrations: 'model/registrations'
+               }
   get "/companies", to: "company#index"
   get "/company/:id", to: "company#show", as: 'company'
   post "/createCompany(.:format)", to: "company#create", as: 'company_create'
