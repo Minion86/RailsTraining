@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Model::SessionsController < Devise::SessionsController
-  respond_to :json
-  
- private
-  
+
+  private
+
   def respond_with(resource, _opts = {})
-    render json: resource
+    render_jsonapi_response(resource)
   end
+
   def respond_to_on_destroy
-    head :ok
+    head :no_content
   end
 end

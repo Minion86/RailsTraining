@@ -266,6 +266,10 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  # ==> Warden configuration
+    # If you want to use other strategies, that are not supported by Devise, or
+    # change the failure app, you can configure them inside the config.warden block.
+    #
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -287,17 +291,19 @@ Devise.setup do |config|
   # ActiveSupport.on_load(:devise_failure_app) do
   #   include Turbolinks::Controller
   # end
-  config.jwt do |jwt|
-     jwt.secret = ENV['DEVISE_SECRET_KEY']
-
-    jwt.dispatch_requests = [
-      ['POST', %r{^/login$}]
-    ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^/logout$}]
-    ]
-
-    jwt.expiration_time = 5.minutes.to_i
+  Devise.setup do |config|
+    # ...
+    config.jwt do |jwt|
+      jwt.secret = "ba518a859627d113ade198ade266ee265ca0584f981c8361d9e5662d505d8b11a61f53a38909b7c32dc54f82cf435e5b56155207d2f9512ab5a84a4777067f32"#ENV['DEVISE_JWT_SECRET_KEY']
+          jwt.dispatch_requests = [
+          ['POST', %r{^/login$}]
+        ]
+        jwt.revocation_requests = [
+          ['DELETE', %r{^/logout$}]
+        ]
+        jwt.expiration_time = 1.day.to_i
+    end
   end
+
   config.navigational_formats = []
 end

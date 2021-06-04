@@ -1,13 +1,18 @@
 class CompanyController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :create]
   before_action :authenticate_model!
-  
+
   def index
     @company = Company.all
     json_response(@company)
   end
 
-  
+  def paginated
+    @company = Company.page(company_params['page']).per(company_params['per'])
+    json_response(@company)
+  end
+
+
   def show
     # @company = Company.find(params[:id])
     json_response(@company)
@@ -23,7 +28,7 @@ class CompanyController < ApplicationController
     else
       json_response(response.errors.to_h)
     end
-   
+
     #
     #    if @company.save
     #      json_response(@company)
@@ -31,22 +36,22 @@ class CompanyController < ApplicationController
     #      json_response({error:'Error',ok:''})
     #    end
   end
- 
+
   def update
     contract = CompanyEditContract.new
     response = contract.call(id: params[:id],name: company_params['name'])
     if(response.success?)
       @company = @company.update(name: company_params['name'])
-     
+
       json_response(@company)
     else
       json_response(response.errors.to_h)
     end
 
-   
+
   end
 
-  
+
   def destroy
     contract = CompanyEditContract.new
     response = contract.call(id: params[:id],name: company_params['name'])
@@ -59,10 +64,10 @@ class CompanyController < ApplicationController
     end
 
   end
-  
+
   private
   def company_params
-    params.permit(:id,:name)
+    params.permit(:id,:name,:page,:per)
   end
 
 
@@ -70,12 +75,7 @@ class CompanyController < ApplicationController
     if(params.has_key?(:id) )
       @company = Company.find(params[:id])
     end
-  
+
   end
 
 end
-
-
-
-
-  
