@@ -3,17 +3,17 @@ require 'logger_simple'
 class EmployeeController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :create]
   before_action :authenticate_model!
-  
+
   def index
     @employee = Employee.all
     json_response(@employee)
   end
-  
+
   def with_deleted
     @employee = Employee.with_deleted.all
     json_response(@employee)
   end
-  
+
 
   def show
     # @employee = Employee.find(params[:id])
@@ -27,11 +27,11 @@ class EmployeeController < ApplicationController
     @project=TagType.find(employee_params['project'])
     @country=TagType.find(employee_params['country'])
     @role=TagType.find(employee_params['role'])
-   
+
     response = contract.call(name: employee_params['name'],company:employee_params['companies_id'],
       project:employee_params['project'], country:employee_params['country'], role:employee_params['role'])
     if(response.success?)
-     
+
       @employee = Employee.create(employee_params)
       @employee.company=@company
       @employee.project=@project
@@ -43,7 +43,7 @@ class EmployeeController < ApplicationController
     else
       json_response(response.errors.to_h)
     end
-   
+
     #
     #    if @employee.save
     #      json_response(@employee)
@@ -51,7 +51,7 @@ class EmployeeController < ApplicationController
     #      json_response({error:'Error',ok:''})
     #    end
   end
- 
+
   def update
     @logger = LoggerSimple.new
     contract = EmployeeEditContract.new
@@ -59,7 +59,7 @@ class EmployeeController < ApplicationController
     @project=TagType.find(employee_params['project'])
     @country=TagType.find(employee_params['country'])
     @role=TagType.find(employee_params['role'])
-    
+
     response = contract.call(id: params[:id],name: employee_params['name'],company:employee_params['companies_id'],
       project:employee_params['project'], country:employee_params['country'], role:employee_params['role'])
     if(response.success?)
@@ -75,10 +75,10 @@ class EmployeeController < ApplicationController
       json_response(response.errors.to_h)
     end
 
-   
+
   end
 
-  
+
   def destroy
     @logger = LoggerSimple.new
     contract = EmployeeDeleteContract.new
@@ -98,7 +98,7 @@ class EmployeeController < ApplicationController
     end
 
   end
-  
+
   private
   def employee_params
     params.permit(:id,:name,:companies_id,:project,:country,:role,:type)
@@ -106,16 +106,11 @@ class EmployeeController < ApplicationController
 
 
   def set_todo
-    
+
     if(params.has_key?(:id) )
       @employee = Employee.with_deleted.find(params[:id])
     end
-  
+
   end
 
 end
-
-
-
-
-  

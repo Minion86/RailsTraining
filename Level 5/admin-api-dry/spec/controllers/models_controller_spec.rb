@@ -1,15 +1,18 @@
 require 'rails_helper'
 
-describe ModelController, type: :request do
+describe ModelsController, type: :request do
 
-  let (:models) { create_model }
+  let (:model) { create_model }
 
   context 'When fetching a model' do
     before do
       login_with_api(model)
+
       get "/models/#{model.id}", headers: {
         'Authorization': response.headers['Authorization']
       }
+
+      puts "/models/#{model.id}"
     end
 
     it 'returns 200' do
@@ -37,7 +40,7 @@ describe ModelController, type: :request do
 
   context 'When the Authorization header is missing' do
     before do
-      get "/models/#{user.id}"
+      get "/models/#{model.id}"
     end
 
     it 'returns 401' do

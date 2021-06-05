@@ -14,7 +14,6 @@ class Model::RegistrationsController < Devise::RegistrationsController
   end
 
 
-
   # POST /resource
   # def create
   #   super

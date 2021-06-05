@@ -1,4 +1,4 @@
 FactoryBot.define do
-  factory :models do
+  factory :model do
   end
 end

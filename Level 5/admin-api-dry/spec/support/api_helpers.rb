@@ -1,3 +1,5 @@
+
+
 module ApiHelpers
 
   def json
@@ -11,6 +13,11 @@ module ApiHelpers
         password: model.password
       }
     }
+  end
+
+
+  def set_devise_mapping
+    request.env['devise.mapping'] = Devise.mappings[:model]
   end
 
 end

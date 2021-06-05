@@ -53,6 +53,8 @@ Rails.application.configure do
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 config.secret_key_base = ENV["SECRET_KEY_BASE"]
+
+ config.hosts.clear
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

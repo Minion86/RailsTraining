@@ -1,14 +1,25 @@
+
 # frozen_string_literal: true
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  config.jwt do |jwt|
+    jwt.secret = "ba518a859627d113ade198ade266ee265ca0584f981c8361d9e5662d505d8b11a61f53a38909b7c32dc54f82cf435e5b56155207d2f9512ab5a84a4777067f32"#ENV['DEVISE_JWT_SECRET_KEY']
+		jwt.dispatch_requests = [
+	    ['POST', %r{^/login$}]
+	  ]
+	  jwt.revocation_requests = [
+	    ['DELETE', %r{^/logout$}]
+	  ]
+	  jwt.expiration_time = 1.day.to_i
+  end
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '7495d848f9f86b6dc45253aa647d424ad3bdc4da8c210b483d8a74efcf3b003f6df2db352b88a8a5464b96d7fec52e28239f5591a03a66ca3d4d7d32bd49fdbb'
+  # config.secret_key = '19dd50900032a49a4686bf855205e3e3412fe53a326e763aec936089f25054650ab0497b59e42b6e6faeb833ffed049bf981db808fc41ff5fa145f9b76b4135e'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -114,7 +125,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '89ddfdeb6363b73b46e9b48476011de9359bac7e21f7fe7091db18a857ab7139ff97bfc6520e32710b91b246a8ef4e959134a84b5ee558cb897c31cd6d481788'
+  # config.pepper = '02a9b26c7e7f8a10a1b1205663dbb954f10c4e72a43f5d05192535f3ae505f4a61f3a5b409d0bd0fa5f5c333b193aaad53c3a7c57471e222a4fb6a7562e779b2'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -126,8 +137,11 @@ Devise.setup do |config|
   # A period that the user is allowed to access the website even without
   # confirming their account. For instance, if set to 2.days, the user will be
   # able to access the website for two days without confirming their account,
-  # access will be blocked just in the third day. Default is 0.days, meaning
-  # the user cannot access the website without confirming their account.
+  # access will be blocked just in the third day.
+  # You can also set it to nil, which will allow the user to access the website
+  # without confirming their account.
+  # Default is 0.days, meaning the user cannot access the website without
+  # confirming their account.
   # config.allow_unconfirmed_access_for = 2.days
 
   # A period that the user is allowed to confirm their account before their
@@ -238,7 +252,7 @@ Devise.setup do |config|
   # Set this configuration to false if you want /users/sign_out to sign out
   # only the current scope. By default, Devise signs out all scopes.
   # config.sign_out_all_scopes = true
-
+  config.navigational_formats = []
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
   # :html, should redirect to the sign in page when the user does not have
@@ -266,10 +280,6 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-  # ==> Warden configuration
-    # If you want to use other strategies, that are not supported by Devise, or
-    # change the failure app, you can configure them inside the config.warden block.
-    #
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
@@ -291,19 +301,10 @@ Devise.setup do |config|
   # ActiveSupport.on_load(:devise_failure_app) do
   #   include Turbolinks::Controller
   # end
-  Devise.setup do |config|
-    # ...
-    config.jwt do |jwt|
-      jwt.secret = "ba518a859627d113ade198ade266ee265ca0584f981c8361d9e5662d505d8b11a61f53a38909b7c32dc54f82cf435e5b56155207d2f9512ab5a84a4777067f32"#ENV['DEVISE_JWT_SECRET_KEY']
-          jwt.dispatch_requests = [
-          ['POST', %r{^/login$}]
-        ]
-        jwt.revocation_requests = [
-          ['DELETE', %r{^/logout$}]
-        ]
-        jwt.expiration_time = 1.day.to_i
-    end
-  end
 
-  config.navigational_formats = []
+  # ==> Configuration for :registerable
+
+  # When set to false, does not sign a user in automatically after their password is
+  # changed. Defaults to true, so a user is signed in automatically after changing a password.
+  # config.sign_in_after_change_password = true
 end

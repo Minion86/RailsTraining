@@ -4,14 +4,14 @@ require 'factory_bot_rails'
 module ModelHelpers
 
   def create_model
-    FactoryBot.create(:models,
+    FactoryBot.create(:model,
             email: Faker::Internet.email,
             password: Faker::Internet.password
         )
   end
 
     def build_model
-    FactoryBot.build(:models,
+    FactoryBot.build(:model,
             email: Faker::Internet.email,
             password: Faker::Internet.password
         )

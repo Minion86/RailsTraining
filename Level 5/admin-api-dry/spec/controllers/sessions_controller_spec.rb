@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SessionsController, type: :request do
+describe Model::SessionsController, type: :request do
 
   let (:model) { create_model }
   let (:login_url) { '/login' }
@@ -8,7 +8,7 @@ describe SessionsController, type: :request do
 
   context 'When logging in' do
     before do
-      login(model)
+      login_with_api(model)
     end
 
     it 'returns a token' do
