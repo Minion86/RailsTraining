@@ -1,0 +1,50 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/Level 1/blog"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "bundler"
+    directory: "/Level 2/store"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "bundler"
+    directory: "/Level 3/store"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "bundler"
+    directory: "/Level 3/store-api"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "bundler"
+    directory: "/Level 4/admin-api-dry"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "bundler"
+    directory: "/Level 5/admin-api-dry"
+    schedule:
+      interval: "weekly"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
